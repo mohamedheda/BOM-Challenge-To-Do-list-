@@ -16,13 +16,14 @@ h2 {
     display: flex;
 }
 .form input{
-    width: 80%;
+    width: 90%;
     margin: 5px;
     height: 30px;
     border: none;
     border-radius: 5px;
     color: #66BFBF;
     background-color: #FFFFFF;
+    margin-right: 5px;
 }
 .form input::placeholder{
     color: #66BFBF;
@@ -58,6 +59,7 @@ h2 {
     position: relative;
     overflow: visible;
     color: #66BFBF;
+    min-height:38.4px ;
 }
 .del {
     background-color: #FF0063;
