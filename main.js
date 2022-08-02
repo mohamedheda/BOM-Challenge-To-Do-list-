@@ -4,9 +4,13 @@ let btn=document.getElementById("btn")
 let newArr=[]
 let count=0
 btn.onclick=function(){
-    set(inputTExt);
-    getBack(count);
-    count+=1
+    if(inputTExt.value!==""){
+    
+        set(inputTExt);
+        getBack(count);
+        inputTExt.value=""
+        count+=1
+    }
 }
 //function for set tasks in local stoarge
 function set (inputTExt){
@@ -17,6 +21,7 @@ function set (inputTExt){
     newArr.push(task)
     window.localStorage.setItem("task",JSON.stringify(newArr))
 }
+
 //function for get tasks from local stoarge
 function getBack(co) {
     let ob=JSON.parse(window.localStorage.getItem("task")) 
@@ -31,7 +36,3 @@ function getBack(co) {
         p.remove()
     }
 }
-
-
-
-
