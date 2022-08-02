@@ -34,5 +34,8 @@ function getBack(co) {
     delBtn.textContent="delete"
     delBtn.onclick=function(){
         p.remove()
+        let ob=JSON.parse(window.localStorage.getItem("task")) 
+        ob.splice(co,1)
+        window.localStorage.setItem("task",JSON.stringify(ob))
     }
 }
