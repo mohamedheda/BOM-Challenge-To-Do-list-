@@ -35,7 +35,6 @@ h2 {
 }
 .form button {
     width: 10%;
-    right: 20px;
     min-width: fit-content;
     border: none;
     padding: 5px;
