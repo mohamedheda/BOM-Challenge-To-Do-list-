@@ -62,6 +62,9 @@ h2 {
     color: #66BFBF;
     min-height:38.4px ;
 }
+.completed{
+    opacity: .5;
+}
 .del {
     background-color: #FF0063;
     border-radius: 5px;
