@@ -1,41 +1,64 @@
 let inputTExt=document.querySelector("input");
 let resultDiv=document.querySelector(".result");
 let btn=document.getElementById("btn")
-let newArr=[]
-let count=0
+let array=[]
+array=JSON.parse(window.localStorage.getItem("task")) 
+getFromLocalStorage()
+//when button is clicked
 btn.onclick=function(){
     if(inputTExt.value!==""){
-    
-        set(inputTExt);
-        getBack(count);
+        addTaskToArray(inputTExt.value)
         inputTExt.value=""
-        count+=1
     }
 }
-//function for set tasks in local stoarge
-function set (inputTExt){
-    let task={
-        theID:`${Math.random()*10**17}`,
-        theTitle:`${inputTExt.value}`
+// add tasks to array
+function addTaskToArray (input){
+    const task={
+        id:Date.now(),
+        tittle:input,
+        completed:false
     }
-    newArr.push(task)
-    window.localStorage.setItem("task",JSON.stringify(newArr))
+    array.push(task)
+    addTaskToPage(array)
+    setAtLocalStorage(array)
+} 
+
+//add tasks to the page
+function addTaskToPage(array){
+    resultDiv.innerHTML=""
+    array.forEach(task => {
+        let p =document.createElement("p")
+        p.textContent=task.tittle
+        resultDiv.appendChild(p)
+        if(task.completed){
+            p.className="completed"
+        }
+        p.setAttribute("data-id",task.id)
+        let del=document.createElement("button")
+        del.textContent="delete"
+        del.className="del"
+        p.appendChild(del)
+        del.addEventListener("click",(e)=>{
+            // remove from page 
+            e.target.parentElement.remove()
+            // remove from local
+            removeFromLocal(e.target.parentElement.getAttribute("data-id"))
+        })
+    });
 }
 
-//function for get tasks from local stoarge
-function getBack(co) {
-    let ob=JSON.parse(window.localStorage.getItem("task")) 
-    let p=document.createElement("p")
-        p.textContent=ob[co].theTitle
-        resultDiv.appendChild(p)
-    let delBtn=document.createElement("button")
-    delBtn.className="del"
-    p.appendChild(delBtn)
-    delBtn.textContent="delete"
-    delBtn.onclick=function(){
-        p.remove()
-        let ob=JSON.parse(window.localStorage.getItem("task")) 
-        ob.splice(co,1)
-        window.localStorage.setItem("task",JSON.stringify(ob))
-    }
+// set at local storage
+function setAtLocalStorage(task){
+    window.localStorage.setItem("task",JSON.stringify(task))
+}
+
+// gt from local storage
+function getFromLocalStorage(){
+    let localArray=JSON.parse(window.localStorage.getItem("task")) 
+    addTaskToPage(localArray)
+    return localArray
+}
+function removeFromLocal(taskId){
+array=array.filter((task)=>task.id!=taskId)
+setAtLocalStorage(array)
 }
